@@ -12,15 +12,18 @@
 //#define FOREGROUND_COLOR sf::Color(104,255,66) // good green
 //#define FOREGROUND_COLOR sf::Color(0,255,255) //  good cyan
 #define FOREGROUND_COLOR sf::Color(247,56,56) // good red
-
+#include "../SimulationEngine/plane.h"
 class View {
 public:
   View() = default;
   View(const View &other) = default;
   View &operator=(const View &other) = default;
+  View(const Plane &data);
   void Draw(sf::RenderWindow &window);
 
+
 protected:
+  Plane data_;
   static sf::Font font_;
 };
 #endif // THELOCKSCREENQUESTION_SFML_WINDOW_VIEW_H_

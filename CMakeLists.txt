@@ -9,15 +9,23 @@ set(sfml_window_dir
         sfml_window/view.h
         sfml_window/view.cpp
         )
-
-add_executable(TheLockScreenQuestion  main.cpp
+set(simulation_dir
+        SimulationEngine/cell.h
+        SimulationEngine/cell.cpp
+        SimulationEngine/plane.h
+        SimulationEngine/plane.cpp
+        SimulationEngine/engine.h
+        SimulationEngine/engine.cpp
+        )
+add_executable(main  main.cpp
         ${sfml_window_dir}
+       ${simulation_dir}
  )
 
 add_subdirectory(SFML)
 add_subdirectory(pm-stl)
 
-set(executables TheLockScreenQuestion)
+set(executables main)
 
 foreach(executable IN LISTS executables)
     target_link_directories(${executable}
