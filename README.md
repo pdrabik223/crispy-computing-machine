@@ -1,2 +1,2 @@
 # crispy-computing-machine
-fluid symulation 
+fluid simulation 
