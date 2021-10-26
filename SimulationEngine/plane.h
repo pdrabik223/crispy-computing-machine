@@ -26,6 +26,8 @@ public:
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
 
+  void AddSquare(const pm::Coord& start, unsigned width, unsigned height);
+
 private:
   unsigned Int(const pm::Coord &position) const {
     return position.ToInt(width_);

@@ -7,18 +7,24 @@
 
 #include "plane.h"
 
+
 class Engine {
+
+
 
 public:
   Engine(Plane plane);
   void Step();
 
-
+  const Plane &GetPlane() const;
 
 private:
-  Cell::State ComputeState(const pm::Coord& position);
+  Cell::State ComputeStateAir(const pm::Coord& position);
+  Cell::State ComputeStateFluid(const pm::Coord& position);
   const double k_g_ = 10;
   const double k_attraction_ = 20;
+
+
 
 protected:
   Plane plane_;
