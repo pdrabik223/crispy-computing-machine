@@ -10,12 +10,16 @@ Engine::Engine(const Plane &plane) : plane_(plane) {}
 
 Cell::State Engine::ComputeStateAir(const pm::Coord &position) {
 
+  // gravity strait down
   if (IsFluid({position.x, position.y - 1}))
     return Cell::State::FLUID;
 
+  // gravity down and left
   if (IsFluid({position.x - 1, position.y - 1}) and
       IsFluid({position.x - 1, position.y}))
     return Cell::State::FLUID;
+
+  // gravity down and right
   if (IsFluid({position.x + 1, position.y - 1}) and
       IsFluid({position.x + 1, position.y}))
     return Cell::State::FLUID;
@@ -23,11 +27,21 @@ Cell::State Engine::ComputeStateAir(const pm::Coord &position) {
   return Cell::State::AIR;
 }
 Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
-
+  // gravity strait down
   if (IsAir({position.x, position.y + 1}))
     return Cell::State::AIR;
 
+  // gravity down and left
+  if (IsFluid({position.x, position.y + 1}) and
+      IsAir({position.x - 1, position.y}) and
+      IsAir({position.x - 1, position.y + 1}))
+    return Cell::State::AIR;
 
+  // gravity down and right
+  if (IsFluid({position.x, position.y + 1}) and
+      IsAir({position.x + 1, position.y}) and
+      IsAir({position.x + 1, position.y + 1}))
+    return Cell::State::AIR;
 
   return Cell::State::FLUID;
 }
@@ -56,13 +70,11 @@ void Engine::Step() {
 const Plane &Engine::GetPlane() const { return plane_; }
 
 bool Engine::IsFluid(const pm::Coord &position) {
-  return plane_.GetCell(position).state ==
-         Cell::State::FLUID;
+  return plane_.GetCell(position).state == Cell::State::FLUID;
 }
 bool Engine::IsAir(const pm::Coord &position) {
   return plane_.GetCell(position).state == Cell::State::AIR;
 }
 bool Engine::IsBarier(const pm::Coord &position) {
-  return plane_.GetCell(position).state ==
-         Cell::State::BARRIER;
+  return plane_.GetCell(position).state == Cell::State::BARRIER;
 }
