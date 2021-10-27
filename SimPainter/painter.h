@@ -7,7 +7,7 @@
 
 #include "../SFML/include/SFML/Graphics/RenderWindow.hpp"
 #include "../SFML/include/SFML/Window/Event.hpp"
-#include "../SimulationEngine/plane.h"
+#include "../CellularSimulationEngine/plane.h"
 class Painter {
 public:
   Painter() = delete;

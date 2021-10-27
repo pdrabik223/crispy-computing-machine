@@ -1,14 +1,13 @@
 //
 // Created by piotr on 27/10/2021.
 //
-#include "../SimulationEngine/engine.h"
-#include "../SimulationEngine/plane.h"
+#include "../CellularSimulationEngine/engine.h"
+
 #include "../sfml_window/window.h"
 #include "iostream"
 #include "painter.h"
-#include <conio.h>
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "EndlessLoop"
+
+
 int main() {
 
   printf("hello world of simulations!\n\n");
@@ -29,4 +28,3 @@ int main() {
 
   return 0;
 }
-#pragma clang diagnostic pop

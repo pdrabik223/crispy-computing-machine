@@ -33,6 +33,7 @@ unsigned int Plane::GetWidth() const { return width_; }
 unsigned int Plane::GetHeight() const { return height_; }
 void Plane::AddSquare(const pm::Coord& start, unsigned int width,
                       unsigned int height) {
+
   for (int x = 0; x < width; ++x) {
     for (int y = 0; y < height; ++y) {
       GetCell({x+start.x, y+ start.y}).state = Cell::State::FLUID;

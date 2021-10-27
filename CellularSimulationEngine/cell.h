@@ -20,6 +20,7 @@ struct Cell{
   Cell& operator=(const Cell& other) = default;
   State state;
 
+
 };
 
 #endif // THELOCKSCREENQUESTION_SIMULATIONENGINE_CELL_H_

@@ -12,7 +12,7 @@
 //#define FOREGROUND_COLOR sf::Color(104,255,66) // good green
 //#define FOREGROUND_COLOR sf::Color(0,255,255) //  good cyan
 #define FOREGROUND_COLOR sf::Color(247,56,56) // good red
-#include "../SimulationEngine/plane.h"
+#include "../CellularSimulationEngine/plane.h"
 class View {
 public:
   View() = default;

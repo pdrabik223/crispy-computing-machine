@@ -53,10 +53,10 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
 
   // gravity down and right
   if (IsFluid({position.x, position.y + 1}) and
-
       IsAir({position.x + 1, position.y}) and
       IsAir({position.x + 1, position.y + 1}))
     return Cell::State::AIR;
+
 
   // gravity down and left
   if (IsFluid({position.x, position.y + 1}) and
@@ -68,6 +68,7 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
       IsAir({position.x - 1, position.y}) and
       IsAir({position.x - 2, position.y}))
     return Cell::State::AIR;
+
 
   // gravity down and left
   if (IsFluid({position.x, position.y + 1}) and
