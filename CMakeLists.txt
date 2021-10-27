@@ -10,12 +10,12 @@ set(sfml_window_dir
         sfml_window/view.cpp
         )
 set(simulation_dir
-        SimulationEngine/cell.h
-        SimulationEngine/cell.cpp
-        SimulationEngine/plane.h
-        SimulationEngine/plane.cpp
-        SimulationEngine/engine.h
-        SimulationEngine/engine.cpp
+        CellularSimulationEngine/cell.h
+        CellularSimulationEngine/cell.cpp
+        CellularSimulationEngine/plane.h
+        CellularSimulationEngine/plane.cpp
+        CellularSimulationEngine/engine.h
+        CellularSimulationEngine/engine.cpp
         )
 set(sim_painter_dir
         SimPainter/painter.h

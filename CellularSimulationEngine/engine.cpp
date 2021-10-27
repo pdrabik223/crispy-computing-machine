@@ -79,8 +79,7 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
       IsAir({position.x + 2, position.y}))
     return Cell::State::AIR;
 
-
-    return Cell::State::FLUID;
+  return Cell::State::FLUID;
 }
 void Engine::Step() {
 
