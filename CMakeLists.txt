@@ -17,15 +17,23 @@ set(simulation_dir
         SimulationEngine/engine.h
         SimulationEngine/engine.cpp
         )
+set(sim_painter_dir
+        SimPainter/painter.h
+        SimPainter/painter.cpp)
+
 add_executable(main  main.cpp
         ${sfml_window_dir}
-       ${simulation_dir}
- )
+       ${simulation_dir})
+
+add_executable(painter  SimPainter/painter_example.cpp
+        ${sfml_window_dir}
+        ${simulation_dir}
+        ${sim_painter_dir})
 
 add_subdirectory(SFML)
 add_subdirectory(pm-stl)
 
-set(executables main)
+set(executables main painter)
 
 foreach(executable IN LISTS executables)
     target_link_directories(${executable}
