@@ -35,7 +35,7 @@ void Window::MainLoop() {
       }
     }
 
-    if (clock.getElapsedTime().asMilliseconds() < 150)
+    if (clock.getElapsedTime().asMilliseconds() < 50)
       continue;
     clock.restart();
 
