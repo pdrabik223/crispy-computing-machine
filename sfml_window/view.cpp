@@ -12,7 +12,7 @@
 sf::Font View::font_;
 
 void View::Draw(sf::RenderWindow &window) {
-  window.clear(sf::Color(120,120,120));
+  window.clear(sf::Color(195,195,195));
 
   float window_height = window.getSize().y;
   float window_width = window.getSize().x;
@@ -48,5 +48,21 @@ void View::Draw(sf::RenderWindow &window) {
       window.draw(square);
     }
 
+  square.setOutlineThickness(1);
+  square.setOutlineColor(sf::Color(247,56,56));
+  for (auto h : highlights_) {
+    square.setPosition(x_pixel_shift + h.first.x * cell_size, y_pixel_shift + h.first.y * cell_size);
+    square.setFillColor(h.second);
+    window.draw(square);
+  }
+
 }
 View::View(const Plane &data) : data_(data) {}
+void View::HighlightCells(const std::vector<pm::Coord>& cells_to_highlight,
+                          sf::Color color) {
+
+  for (auto c :cells_to_highlight) {
+    highlights_.push_back({{(float)c.x,(float)c.y},color});
+  }
+
+}

@@ -21,9 +21,11 @@ public:
   View(const Plane &data);
   void Draw(sf::RenderWindow &window);
 
+  void HighlightCells(const std::vector<pm::Coord>& cells_to_highlight, sf::Color color);
 
 protected:
   Plane data_;
+  std::vector<std::pair<sf::Vector2f,sf::Color>>  highlights_;
   static sf::Font font_;
 };
 #endif // THELOCKSCREENQUESTION_SFML_WINDOW_VIEW_H_

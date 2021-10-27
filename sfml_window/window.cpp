@@ -13,11 +13,11 @@ void Window::MainLoop() {
   sf::RenderWindow window(sf::VideoMode(width_, height_), "CoA",
                           sf::Style::Titlebar | sf::Style::Close, settings);
 
-
   window.setPosition(sf::Vector2i(position_.x, position_.y));
-//  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  //  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   // window.display();
   sf::Clock clock;
+
 
   while (window.isOpen()) {
 
@@ -27,26 +27,32 @@ void Window::MainLoop() {
       if (event_.type == sf::Event::Closed)
         window.close();
       else if (event_.type == sf::Event::KeyPressed) {
-          if (event_.key.code == sf::Keyboard::Escape) {
+
+        if (event_.key.code == sf::Keyboard::Escape) {
           window.close();
         }
+
       }
     }
 
-    //    if(clock.getElapsedTime().asMilliseconds()<150) continue;
-    //    clock.restart();
+    if (clock.getElapsedTime().asMilliseconds() < 150)
+      continue;
+    clock.restart();
 
     if (GetQueueSize() != 0) {
       PopFrame().Draw(window);
       window.display();
-    }else std::this_thread::sleep_for(std::chrono::milliseconds(16));
+    } else
+      std::this_thread::sleep_for(std::chrono::milliseconds(16));
   }
 }
 
-Window::Window(int width, int height) : height_(height), width_(width), position_(0, 0) {
+Window::Window(int width, int height)
+    : height_(height), width_(width), position_(0, 0) {
   screen_thread_ = new std::thread(&Window::MainLoop, this);
 }
-Window::Window(const sf::Vector2<float> &position, int width, int height) : height_(height), width_(width), position_(position) {
+Window::Window(const sf::Vector2<float> &position, int width, int height)
+    : height_(height), width_(width), position_(position) {
   screen_thread_ = new std::thread(&Window::MainLoop, this);
 }
 
@@ -61,7 +67,8 @@ View Window::PopFrame() {
 
 void Window::PushFrame(const View &new_frame) {
 
-  while (GetQueueSize() > 80) std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  while (GetQueueSize() > 80)
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   const std::lock_guard<std::mutex> kLock(event_queue_mutex_);
   frame_queue_.push(new_frame);
@@ -74,7 +81,8 @@ void Window::SetWindowLabel(const std::string &label) {
   current_window_title_ = label;
 }
 Window &Window::operator=(const Window &other) {
-  if (this == &other) return *this;
+  if (this == &other)
+    return *this;
   width_ = other.width_;
   height_ = other.height_;
   current_window_title_ = other.current_window_title_;
