@@ -6,30 +6,36 @@
 
 #include <utility>
 
-Engine::Engine(Plane plane) : plane_(std::move(plane)) {}
+Engine::Engine(const Plane &plane) : plane_(plane) {}
 
 Cell::State Engine::ComputeStateAir(const pm::Coord &position) {
 
-  if (plane_.GetCell({position.x, position.y - 1}).state == Cell::State::FLUID)
+  if (IsFluid({position.x, position.y - 1}))
     return Cell::State::FLUID;
 
-  if (plane_.GetCell({position.x - 1, position.y - 1}).state ==
-          Cell::State::FLUID and
-      plane_.GetCell({position.x - 1, position.y}).state == Cell::State::FLUID)
+  if (IsFluid({position.x - 1, position.y - 1}) and
+      IsFluid({position.x - 1, position.y}))
     return Cell::State::FLUID;
-
-  if (plane_.GetCell({position.x + 1, position.y - 1}).state ==
-          Cell::State::FLUID and
-      plane_.GetCell({position.x + 1, position.y}).state == Cell::State::FLUID)
+  if (IsFluid({position.x + 1, position.y - 1}) and
+      IsFluid({position.x + 1, position.y}))
     return Cell::State::FLUID;
 
   return Cell::State::AIR;
+}
+Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
+
+  if (IsAir({position.x, position.y + 1}))
+    return Cell::State::AIR;
+
+
+
+  return Cell::State::FLUID;
 }
 void Engine::Step() {
 
   Plane buffer(plane_.GetWidth(), plane_.GetHeight());
 
-  for (int x = 0; x < plane_.GetWidth(); ++x) {
+  for (int x = 0; x < plane_.GetWidth(); ++x)
     for (int y = 0; y < plane_.GetHeight(); ++y) {
       switch (plane_.GetCell({x, y}).state) {
       case Cell::State::AIR:
@@ -43,16 +49,20 @@ void Engine::Step() {
         break;
       }
     }
-  }
 
   plane_ = buffer;
 }
-Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
-  if(plane_.GetCell({position.x, position.y - 1}).state == Cell::State::AIR)
-    return Cell::State::AIR;
 
-
-   return Cell::State::FLUID;
-
-}
 const Plane &Engine::GetPlane() const { return plane_; }
+
+bool Engine::IsFluid(const pm::Coord &position) {
+  return plane_.GetCell(position).state ==
+         Cell::State::FLUID;
+}
+bool Engine::IsAir(const pm::Coord &position) {
+  return plane_.GetCell(position).state == Cell::State::AIR;
+}
+bool Engine::IsBarier(const pm::Coord &position) {
+  return plane_.GetCell(position).state ==
+         Cell::State::BARRIER;
+}

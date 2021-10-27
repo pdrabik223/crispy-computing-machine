@@ -10,7 +10,9 @@ struct Cell{
   enum class State{
     AIR,
     FLUID,
-    BARRIER
+    BARRIER,
+    // pipe_ip
+        // pipe_out
   };
 
   Cell(State state);

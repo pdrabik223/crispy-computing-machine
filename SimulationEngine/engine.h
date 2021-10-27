@@ -13,7 +13,7 @@ class Engine {
 
 
 public:
-  Engine(Plane plane);
+  Engine(const Plane& plane);
   void Step();
 
   const Plane &GetPlane() const;
@@ -23,6 +23,9 @@ private:
   Cell::State ComputeStateFluid(const pm::Coord& position);
   const double k_g_ = 10;
   const double k_attraction_ = 20;
+  bool IsFluid(const pm::Coord& position);
+  bool IsAir(const pm::Coord& position);
+  bool IsBarier(const pm::Coord& position);
 
 
 
