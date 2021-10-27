@@ -39,24 +39,23 @@ Cell::State Engine::ComputeStateAir(const pm::Coord &position) {
   return Cell::State::AIR;
 }
 
-Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
+void Engine::ComputeStateFluid(const pm::Coord &position) {
 
   // gravity strait down
   if (IsAir({position.x, position.y + 1}))
-    return Cell::State::AIR;
+    plane_.Get(postion).direction.push_back({position.x, position.y + 1});
 
   // gravity down and left
   if (IsFluid({position.x, position.y + 1}) and
       IsAir({position.x - 1, position.y}) and
       IsAir({position.x - 1, position.y + 1}))
-    return Cell::State::AIR;
+    plane_.Get(postion).direction.push_back({position.x - 1, position.y + 1});
 
   // gravity down and right
   if (IsFluid({position.x, position.y + 1}) and
       IsAir({position.x + 1, position.y}) and
       IsAir({position.x + 1, position.y + 1}))
-    return Cell::State::AIR;
-
+    plane_.Get(postion).direction.push_back({position.x + 1, position.y + 1});
 
   // gravity down and left
   if (IsFluid({position.x, position.y + 1}) and
@@ -67,8 +66,7 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
 
       IsAir({position.x - 1, position.y}) and
       IsAir({position.x - 2, position.y}))
-    return Cell::State::AIR;
-
+    plane_.Get(postion).direction.push_back({position.x - 2, position.y + 1});
 
   // gravity down and left
   if (IsFluid({position.x, position.y + 1}) and
@@ -78,9 +76,9 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
       IsAir({position.x + 2, position.y + 1}) and
       IsAir({position.x + 1, position.y}) and
       IsAir({position.x + 2, position.y}))
-    return Cell::State::AIR;
+    plane_.Get(postion).direction.push_back({position.x + 2, position.y + 1});
 
-  return Cell::State::FLUID;
+  plane_.Get(postion).direction.push_back(postion);
 }
 void Engine::Step() {
 
@@ -90,10 +88,10 @@ void Engine::Step() {
     for (int y = 0; y < plane_.GetHeight(); ++y) {
       switch (plane_.GetCell({x, y}).state) {
       case Cell::State::AIR:
-        buffer.GetCell({x, y}).state = ComputeStateAir({x, y});
+        //        buffer.GetCell({x, y}).state = ComputeStateAir({x, y});
         break;
       case Cell::State::FLUID:
-        buffer.GetCell({x, y}).state = ComputeStateFluid({x, y});
+        ComputeStateFluid({x, y});
         break;
       case Cell::State::BARRIER:
         buffer.GetCell({x, y}).state = Cell::State::BARRIER;

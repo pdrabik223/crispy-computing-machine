@@ -20,7 +20,7 @@ public:
   std::vector<unsigned> CountCells();
 private:
   Cell::State ComputeStateAir(const pm::Coord& position);
-  Cell::State ComputeStateFluid(const pm::Coord& position);
+  void ComputeStateFluid(const pm::Coord& position);
 
   bool IsFluid(const pm::Coord& position);
   bool IsAir(const pm::Coord& position);

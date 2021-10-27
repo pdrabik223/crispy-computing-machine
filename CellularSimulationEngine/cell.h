@@ -19,7 +19,7 @@ struct Cell{
   Cell(const Cell& other) = default;
   Cell& operator=(const Cell& other) = default;
   State state;
-
+  std::vector<pm::Coord> direction;
 
 };
 
