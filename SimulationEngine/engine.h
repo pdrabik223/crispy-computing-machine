@@ -17,7 +17,7 @@ public:
   void Step();
 
   const Plane &GetPlane() const;
-
+  std::vector<unsigned> CountCells();
 private:
   Cell::State ComputeStateAir(const pm::Coord& position);
   Cell::State ComputeStateFluid(const pm::Coord& position);
@@ -31,7 +31,7 @@ private:
 
 protected:
   Plane plane_;
-
+  unsigned frame_ = 0;
 
 };
 
