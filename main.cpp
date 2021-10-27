@@ -17,13 +17,12 @@ int main() {
   test.AddSquare({50, 50}, 10, 10);
   screen.PushFrame(test);
   Engine engine(test);
+
   while (true) {
-    int frame = 0;
-    printf("\rframe: %d", frame);
-    frame++;
-    getch();
     engine.Step();
     screen.PushFrame(engine.GetPlane());
+    while(screen.GetQueueSize() > 30) std::this_thread::sleep_for(std::chrono::milliseconds(16)) ;
+    if(screen.GetQueueSize() > 100) break;
   }
 
   return 0;

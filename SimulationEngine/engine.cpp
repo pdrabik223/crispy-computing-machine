@@ -38,6 +38,7 @@ Cell::State Engine::ComputeStateAir(const pm::Coord &position) {
 
   return Cell::State::AIR;
 }
+
 Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
 
   // gravity strait down
@@ -54,7 +55,6 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
   if (IsFluid({position.x, position.y + 1}) and
 
       IsAir({position.x + 1, position.y}) and
-
       IsAir({position.x + 1, position.y + 1}))
     return Cell::State::AIR;
 
@@ -75,7 +75,6 @@ Cell::State Engine::ComputeStateFluid(const pm::Coord &position) {
       IsFluid({position.x + 1, position.y + 1}) and
 
       IsAir({position.x + 2, position.y + 1}) and
-
       IsAir({position.x + 1, position.y}) and
       IsAir({position.x + 2, position.y}))
     return Cell::State::AIR;

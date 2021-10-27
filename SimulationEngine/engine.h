@@ -31,6 +31,7 @@ private:
 
 protected:
   Plane plane_;
+
   unsigned frame_ = 0;
 
 };
